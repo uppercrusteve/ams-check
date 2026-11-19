@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>高原徒步助手 · 上升速率与自评</title>
+<meta name="description" content="离线可用的高原上升速率计算与 Lake Louise 自评。数据只留本机。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>高原徒步助手</h1>
+  <p class="lede">算今天的净上升，按 Lake Louise 量表自评。数据只留在这台设备，谁都不上传。</p>
+</header>
+
+<main>
+  <section class="card" aria-labelledby="ascent-h">
+    <h2 id="ascent-h">1 · 今天升了多少</h2>
+    <div class="grid2">
+      <label>昨晚睡在（m）
+        <input type="number" id="prevSleep" inputmode="numeric" min="0" max="6000" placeholder="3300">
+      </label>
+      <label>今天最高到（m）
+        <input type="number" id="todaySleep" inputmode="numeric" min="0" max="6000" placeholder="3700">
+      </label>
+    </div>
+    <p id="ascentOut" class="verdict" data-tone="muted" aria-live="polite">
+      <strong>先填海拔</strong><span>两个海拔都要填才能算净上升。</span>
+    </p>
+    <p class="hint">每晚睡多高，比白天冲到多高更要紧。白天可以高走，睡回低处。</p>
+  </section>
+
+  <section class="card" aria-labelledby="score-h">
+    <h2 id="score-h">2 · 症状自评</h2>
+    <p class="hint">按现在这一刻的感觉打分：0 无 · 1 轻 · 2 中 · 3 重。四项都填 0 也照提交，方便留记录。</p>
+    <div id="symptoms"></div>
+    <p id="scoreOut" class="verdict" data-tone="muted" aria-live="polite">
+      <strong>还没填</strong><span>选完四项会出结论。</span>
+    </p>
+  </section>
+
+  <section class="card" aria-labelledby="flag-h">
+    <h2 id="flag-h">3 · 红旗项</h2>
+    <p class="hint">勾上任意一项，按“立刻下撤”处理。</p>
+    <div id="flags"></div>
+  </section>
+
+  <section class="card" aria-labelledby="out-h">
+    <h2 id="out-h">该怎么做</h2>
+    <ul id="advice" class="advice"></ul>
+    <div class="row">
+      <button id="save" type="button">存一条记录</button>
+      <button id="export" type="button" class="ghost">导出全部</button>
+    </div>
+    <p id="savedMsg" class="hint" role="status"></p>
+    <ol id="history" class="history"></ol>
+  </section>
+
+  <details class="card">
+    <summary>这一带的参考海拔</summary>
+    <p class="hint" id="routeNote"></p>
+    <div id="routes"></div>
+    <p class="hint">数值是路书和地形图上的高程点，不是实测。挑一个填进上面的输入框即可。</p>
+  </details>
+
+  <details class="card">
+    <summary>怎么判的，判到哪一步为止</summary>
+    <h3>上升速率</h3>
+    <p>海拔 2500 m 以上，睡眠海拔每日上升建议不超过 500 m；超过 1000 m 算过快，每 1000 m 安排一天适应。低于 2500 m 不套这个限制。</p>
+    <h3>自评</h3>
+    <p>用 Lake Louise 量表（2018 版）：头痛、胃肠、疲乏、头晕四项各 0–3 分。头痛 ≥1 且总分 ≥3 判为急性高原反应；总分 ≥6 判中重度。头痛为 0 时不算 AMS。</p>
+    <h3>它不干的事</h3>
+    <p>不做诊断，不替代医生。儿童、孕妇、有心肺基础病的人，阈值要医生另说。症状和评分打架时以人的状态为准。</p>
+    <p><a href="https://github.com/uppercrusteve/ams-check">源码与问题反馈</a></p>
+  </details>
+</main>
+
+<footer>
+  <p>自评不是诊断。出现走路不稳、静息也喘、咳粉红色泡沫痰，立刻下撤并就医。</p>
+</footer>
+
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

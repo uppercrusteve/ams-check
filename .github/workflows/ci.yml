@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test "tests/*.test.mjs"
+      - name: 页面能被静态服务起来
+        run: |
+          python3 -m http.server 8123 &
+          sleep 1
+          curl -fsS http://localhost:8123/ > /dev/null
+          curl -fsS http://localhost:8123/src/ams.js > /dev/null
+          curl -fsS http://localhost:8123/sw.js > /dev/null
